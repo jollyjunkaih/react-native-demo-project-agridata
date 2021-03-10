@@ -1,0 +1,21 @@
+{
+    "userid":2,
+    "listings":[
+        {   "id": "",
+            "status": "sold",
+            "produce": "ginger",
+            "type":"A grade",
+            "amount": 20,
+            "UOM": "kg",
+            "image":"images/ginger.png"
+        },
+        {   "id": "",
+            "status": "sold",
+            "produce": "ginger",
+            "type":"A grade",
+            "amount": 20,
+            "UOM": "kg",
+            "image":"images/ginger.png"
+        },
+    ]
+}

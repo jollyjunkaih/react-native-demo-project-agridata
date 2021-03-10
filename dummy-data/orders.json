@@ -1,0 +1,18 @@
+{
+    "id": "",
+    "status": "sold",
+    "produce":
+        [
+            {"name":"ginger",
+            "type":"A grade",
+            "amount": 20,
+            "UOM": "kg",
+            "image":"images/ginger.png"}
+
+
+        ],
+    "deliveryloc":"",
+    "dateofdelivery":"",
+    "orderdate":""
+
+}
