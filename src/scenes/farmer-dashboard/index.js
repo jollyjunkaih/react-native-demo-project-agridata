@@ -23,7 +23,7 @@ const FDashboard = ({navigation}) => (
           </TouchableOpacity>
       </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('forder')} activeOpacity= {0.5}>
           <Image style={[styles.image3,{left:wp(21), width:wp(73), height:hp(78)}]} source={require('_assets/images/order-icon.png')}></Image>
           <Text style={[styles.text]}>My Orders</Text>
         </TouchableOpacity>
