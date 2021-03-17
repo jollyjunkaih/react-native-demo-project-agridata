@@ -4,8 +4,8 @@ import Farm from '_scenes/farm';
 import FDashboard from '_scenes/farmer-dashboard';
 import Order from '_scenes/farmer-order';
 import AddProduce from '_scenes/add_produce';
+import ProduceList from '_scenes/produce-list';
 import {createStackNavigator} from '@react-navigation/stack';
-import MarketPlace from '_scenes/marketplace';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="marketplace" component={MarketPlace} />
+        <Stack.Screen name="producelist" component={ProduceList} />
         <Stack.Screen name="addproduce" component={AddProduce} />
         <Stack.Screen name="fdashboard" component={FDashboard} />
         <Stack.Screen name="farm" component={Farm} />

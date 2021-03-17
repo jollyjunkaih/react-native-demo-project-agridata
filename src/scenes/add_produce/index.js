@@ -1,21 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  KeyboardAvoidingView,
-  TextInput,
-  SafeAreaView,
   Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  FlatList,
   View,
-  KeyboardAvoidingViewBase,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  FlatList,
+  Modal,
 } from 'react-native';
-import {wp, hp, rfv} from '_utils';
-import DropDownPicker from 'react-native-dropdown-picker';
-import SearchableDropdown from 'react-native-searchable-dropdown';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import DropDownPicker from 'react-native-dropdown-picker';
+import {wp, hp, rfv} from '_utils';
+import SearchableDropdown from 'react-native-searchable-dropdown';
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -66,71 +64,121 @@ const Item = ({image}) => (
 );
 
 const AddProduce = ({navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const renderItem = ({item}) => <Item image={item.image} />;
   return (
-    <KeyboardAvoidingView behavior="position" style={{flex: 1}} enabled>
-      <SafeAreaView style={{flex: 1}}>
-        <TouchableOpacity
-          style={styles.back}
-          onPress={() => navigation.navigate('farm')}
-          underlayColor="white"
-          activeOpacity={0.4}>
-          <Image source={require('_assets/images/back.png')}></Image>
-        </TouchableOpacity>
-        <Text style={styles.header}>Add Produce</Text>
-
+    <SafeAreaView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.modalView}>
+          <Image
+            style={{
+              width: wp(122),
+              height: wp(120),
+              left: wp(0),
+              top: hp(40),
+            }}
+            source={require('_assets/images/thumbs-up.png')}></Image>
+          <Text style={styles.modalText}>ADDED!</Text>
+          <TouchableOpacity
+            style={[
+              {
+                borderRadius: 20,
+                height: hp(20),
+                width: wp(90),
+                elevation: 2,
+                top: hp(60),
+              },
+              styles.buttonClose,
+            ]}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.textStyle}>Done</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+      <TouchableOpacity
+        style={styles.back}
+        onPress={() => navigation.navigate('farm')}
+        underlayColor="white"
+        activeOpacity={0.4}>
+        <Image source={require('_assets/images/back.png')}></Image>
+      </TouchableOpacity>
+      <Text style={styles.header}>Add Produce</Text>
+      <View
+        style={{
+          position: 'absolute',
+          width: wp(302),
+          height: hp(80),
+          left: wp(29),
+          top: hp(88),
+          backgroundColor: '#F1F1F1',
+          elevation: 3,
+          borderRadius: 14,
+        }}>
+        <Text
+          style={{
+            position: 'absolute',
+            width: wp(238),
+            height: hp(33),
+            left: wp(19),
+            top: hp(10),
+            fontFamily: 'Poppins-Regular',
+            fontSize: rfv(13),
+            lineHeight: hp(19),
+            letterSpacing: wp(0.03),
+            color: 'black',
+          }}>
+          You recently added:
+        </Text>
         <View
           style={{
             position: 'absolute',
-            width: wp(302),
-            height: hp(80),
-            left: wp(29),
-            top: hp(88),
-            backgroundColor: '#F1F1F1',
-            elevation: 3,
-            borderRadius: 14,
+            display: 'flex',
+            top: hp(30),
+            left: wp(4),
           }}>
-          <Text
-            style={{
-              position: 'absolute',
-              width: wp(238),
-              height: hp(33),
-              left: wp(19),
-              top: hp(10),
-              fontFamily: 'Poppins-Regular',
-              fontSize: rfv(13),
-              lineHeight: hp(19),
-              letterSpacing: wp(0.03),
-              color: 'black',
-            }}>
-            You recently added:
-          </Text>
-          <View
-            style={{
-              position: 'absolute',
-              display: 'flex',
-              top: hp(30),
-              left: wp(4),
-            }}>
-            <FlatList
-              horizontal={true}
-              data={DATA}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}></FlatList>
-          </View>
+          <FlatList
+            horizontal={true}
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}></FlatList>
         </View>
-
-        <View style={styles.container}>
+      </View>
+      <View
+        style={{
+          backgroundColor: 'white',
+          position: 'absolute',
+          height: hp(340),
+          width: wp(300),
+          top: hp(180),
+          left: wp(30),
+          borderRadius: 20,
+        }}>
+        <View
+          style={{
+            top: hp(10),
+            left: wp(10),
+            height: hp(80),
+            position: 'absolute',
+            zIndex: 3,
+            borderColor: 'blue',
+            width: wp(300),
+          }}>
           <SearchableDropdown
             onItemSelect={(item) => alert(JSON.stringify(item))}
+            containerStyle={{zIndex: 5}}
             textInputStyle={{
               borderWidth: 1,
               borderColor: '#ccc',
               borderRadius: 5,
               width: wp(277),
-              height: hp(36),
-              left: wp(13),
-              top: hp(24),
+              height: hp(30),
             }}
             itemStyle={{
               backgroundColor: '#ddd',
@@ -138,197 +186,245 @@ const AddProduce = ({navigation}) => {
               borderWidth: 1,
               borderRadius: 5,
               width: wp(277),
-              height: hp(36),
-              left: wp(13),
-              top: hp(24),
+              height: hp(30),
             }}
             itemTextStyle={{color: '#222'}}
-            itemsContainerStyle={{maxHeight: 140}}
+            itemsContainerStyle={{maxHeight: 100, zIndex: 5}}
             items={DATA}
             placeholder="Produce"
             resetValue={true}
             underlineColorAndroid="transparent"
+            defaultIndex={5}
           />
-          <TextInput
-            style={{
-              borderColor: '#F1F1F1',
-              position: 'absolute',
-              width: wp(270),
-              height: hp(36),
-              left: wp(13),
-              top: hp(80),
-              borderWidth: 1,
-              borderRadius: 20,
-              textAlign: 'center',
-              paddingTop: hp(12),
-            }}
-            placeholder="Variety (Optional)"
-            underlineColorAndroid="transparent"
-          />
-          <TextInput
-            keyboardType="number-pad"
-            style={styles.input}
-            placeholder="Quantity"
-            underlineColorAndroid="transparent"
-          />
-          <DropDownPicker
-            items={[
-              {label: 'kgs', value: 'item1'},
-              {label: 'tonnes', value: 'item2'},
-            ]}
-            placeholder="Units"
-            containerStyle={{
-              height: hp(35),
-              width: wp(100),
-              position: 'absolute',
-              left: wp(190),
-              top: hp(135),
-              borderRadius: 20,
-            }}
-            onChangeItem={(item) => console.log(item.label, item.value)}
-          />
-          <DropDownPicker
-            items={[
-              {label: 'Self Delivery', value: 'item1'},
-              {label: 'Require PickUp', value: 'item2'},
-            ]}
-            placeholder="Logistics Options"
-            containerStyle={{
-              height: hp(35),
-              width: wp(273),
-              position: 'absolute',
-              left: wp(14),
-              top: hp(190),
-              borderRadius: 20,
-            }}
-            onChangeItem={(item) => console.log(item.label, item.value)}
-          />
-
-          <TextInput
-            keyboardType="number-pad"
-            style={styles.input2}
-            placeholder="Price"
-            underlineColorAndroid="transparent"
-          />
-          <DropDownPicker
-            items={[
-              {label: 'kgs', value: 'item1'},
-              {label: 'tonnes', value: 'item2'},
-            ]}
-            placeholder="Units"
-            containerStyle={{
-              height: hp(35),
-              width: wp(100),
-              position: 'absolute',
-              left: wp(190),
-              top: hp(245),
-              borderRadius: 20,
-            }}
-            onChangeItem={(item) => console.log(item.label, item.value)}
-          />
-          <TextInput
-            keyboardType="number-pad"
-            style={styles.input3}
-            placeholder="Minimum Order Quantity"
-            underlineColorAndroid="transparent"
-          />
-          <Text style={{position: 'absolute', left: wp(260), top: hp(310)}}>
-            kg
-          </Text>
         </View>
-
+        <View style={styles.container}>
+          <KeyboardAwareScrollView enableOnAndroid={true}>
+            <View>
+              <View
+                style={{
+                  height: hp(35),
+                  width: wp(300),
+                  top: hp(20),
+                  //backgroundColor: 'red',
+                }}>
+                <TextInput
+                  keyboardType="number-pad"
+                  placeholder="Variety (Optional)"
+                  underlineColorAndroid="transparent"
+                  style={{
+                    height: hp(35),
+                    width: wp(270),
+                    borderWidth: 1,
+                    borderColor: '#F1F1F1',
+                    borderRadius: 20,
+                    textAlign: 'center',
+                    left: wp(13),
+                    position: 'absolute',
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  height: hp(35),
+                  width: wp(230),
+                  top: hp(40),
+                  //backgroundColor: 'red',
+                }}>
+                <TextInput
+                  keyboardType="number-pad"
+                  placeholder="Quantity"
+                  underlineColorAndroid="transparent"
+                  style={{
+                    position: 'absolute',
+                    height: hp(35),
+                    width: wp(150),
+                    borderWidth: 1,
+                    borderColor: '#F1F1F1',
+                    borderRadius: 20,
+                    textAlign: 'center',
+                    left: wp(13),
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  left: wp(14),
+                  top: hp(60),
+                  height: hp(35),
+                  width: wp(273),
+                  zIndex: 3,
+                }}>
+                <DropDownPicker
+                  items={[
+                    {label: 'Self Delivery', value: 'item1'},
+                    {label: 'Require PickUp', value: 'item2'},
+                  ]}
+                  placeholder="Logistics Options"
+                  containerStyle={{
+                    height: hp(35),
+                    width: wp(273),
+                    borderRadius: 20,
+                  }}
+                  onChangeItem={(item) => console.log(item.label, item.value)}
+                />
+              </View>
+              <View
+                style={{
+                  height: hp(35),
+                  width: wp(300),
+                  top: hp(80),
+                  //backgroundColor: 'red',
+                }}>
+                <TextInput
+                  keyboardType="number-pad"
+                  placeholder="Price"
+                  underlineColorAndroid="transparent"
+                  style={{
+                    height: hp(35),
+                    width: wp(150),
+                    borderWidth: 1,
+                    borderColor: '#F1F1F1',
+                    borderRadius: 20,
+                    textAlign: 'center',
+                    left: wp(13),
+                    position: 'absolute',
+                  }}
+                />
+                <Text style={{position: 'absolute', left: wp(235), top: hp(8)}}>
+                  per kilo
+                </Text>
+              </View>
+              <View
+                style={{
+                  height: hp(35),
+                  width: wp(300),
+                  top: hp(100),
+                  //backgroundColor: 'red',
+                }}>
+                <TextInput
+                  keyboardType="number-pad"
+                  placeholder="Minimum Order Quantity"
+                  underlineColorAndroid="transparent"
+                  style={styles.input3}
+                />
+                <Text style={{position: 'absolute', left: wp(260), top: hp(8)}}>
+                  kg
+                </Text>
+              </View>
+              <View
+                style={{
+                  top: hp(110),
+                  height: 200,
+                  backgroundColor: 'white',
+                }}></View>
+            </View>
+          </KeyboardAwareScrollView>
+        </View>
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          height: hp(75),
+          width: wp(360),
+          left: wp(99),
+          top: hp(540),
+        }}>
         <TouchableOpacity
           style={{
             position: 'absolute',
             height: hp(33),
             width: wp(163),
-            left: wp(99),
-            top: hp(570),
             backgroundColor: '#CDDCF3',
             elevation: 3,
             borderRadius: 20,
           }}
-          underlayColor="white"
-          activeOpacity={0.5}>
-          <Text
-            style={{
-              position: 'absolute',
-              width: wp(142),
-              height: hp(33),
-              left: wp(11),
-              top: hp(0),
-              fontFamily: 'Poppins-Regular',
-              fontSize: rfv(14),
-              lineHeight: hp(24),
-              letterSpacing: wp(0.13),
-              alignItems: 'center',
-              textAlign: 'center',
-              textAlignVertical: 'center',
-            }}>
-            ADD
-          </Text>
+          onPress={() => setModalVisible(true)}>
+          <Text style={styles.buttontext}>ADD</Text>
         </TouchableOpacity>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            top: hp(40),
+            height: hp(33),
+            width: wp(163),
+            backgroundColor: '#CDDCF3',
+            elevation: 3,
+            borderRadius: 20,
+          }}
+          onPress={() => navigation.navigate('producelist')}>
+          <Text style={styles.buttontext}>VIEW LIST</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default AddProduce;
-
 const styles = StyleSheet.create({
+  modalView: {
+    top: hp(180),
+    left: wp(70),
+    width: wp(226),
+    height: hp(264),
+    backgroundColor: '#E2EDFE',
+    borderRadius: 37,
+    alignItems: 'center',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    top: hp(50),
+    width: wp(155),
+    fontFamily: 'Poppins-Bold',
+    fontSize: rfv(22),
+    textAlign: 'center',
+  },
   input3: {
+    position: 'absolute',
     height: hp(35),
     width: wp(230),
     borderWidth: 1,
     borderColor: '#F1F1F1',
     borderRadius: 20,
     textAlign: 'center',
-    top: hp(199),
-    left: wp(13),
-  },
-  input2: {
-    height: hp(35),
-    width: wp(150),
-    borderWidth: 1,
-    borderColor: '#F1F1F1',
-    borderRadius: 20,
-    textAlign: 'center',
-    top: hp(177),
-    left: wp(13),
-  },
-  input: {
-    height: hp(35),
-    width: wp(150),
-    borderWidth: 1,
-    borderColor: '#F1F1F1',
-    borderRadius: 20,
-    textAlign: 'center',
-    top: hp(102),
     left: wp(13),
   },
   container: {
     position: 'absolute',
     width: wp(302),
-    height: hp(368),
-    left: wp(29),
-    top: hp(192),
-    elevation: 2,
+    height: hp(300),
+    left: wp(0),
+    top: hp(50),
     borderRadius: 20,
     backgroundColor: 'white',
   },
-  back: {
-    position: 'absolute',
-    width: wp(28),
-    height: hp(22),
-    left: wp(20),
-    top: hp(35),
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+  },
+  countContainer: {
+    alignItems: 'center',
+    padding: 10,
   },
   header: {
     position: 'absolute',
     width: wp(312),
     height: hp(33),
     left: wp(24),
-    top: hp(57),
+    top: hp(50),
     fontFamily: 'Poppins-Regular',
     fontSize: rfv(27),
     lineHeight: hp(30),
@@ -338,5 +434,26 @@ const styles = StyleSheet.create({
     letterSpacing: wp(0.08),
     textTransform: 'capitalize',
     color: '#444443',
+  },
+  back: {
+    position: 'absolute',
+    width: wp(28),
+    height: hp(22),
+    left: wp(20),
+    top: hp(35),
+  },
+  buttontext: {
+    position: 'absolute',
+    width: wp(142),
+    height: hp(33),
+    left: wp(11),
+    top: hp(0),
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: rfv(14),
+    lineHeight: hp(24),
+    letterSpacing: wp(0.13),
+    alignItems: 'center',
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 });
