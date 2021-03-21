@@ -152,9 +152,9 @@ const Item = ({name, type, weight, date, image}) => (
   </TouchableOpacity>
 );
 
-const buttons = ['PENDING', 'CONFIRMED', 'COMPLETED'];
+const buttons = ['NEW', 'CONFIRMED', 'COMPLETED'];
 
-const FOrder = ({navigation}) => {
+const ROrder = ({navigation}) => {
   const renderItem = ({item}) => (
     <Item
       name={item.name}
@@ -255,7 +255,7 @@ const FOrder = ({navigation}) => {
   );
 };
 
-export default FOrder;
+export default ROrder;
 
 const styles = StyleSheet.create({
   title: {
