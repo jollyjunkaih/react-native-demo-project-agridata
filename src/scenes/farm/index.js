@@ -176,7 +176,7 @@ const Farm = ({navigation}) => {
     />
   );
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
       <TouchableOpacity
         style={styles.back}
         onPress={() => navigation.navigate('fdashboard')}
