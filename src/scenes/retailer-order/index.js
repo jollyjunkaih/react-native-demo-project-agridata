@@ -22,6 +22,7 @@ const DATA = [
     date: 'Feb 24 2021',
     weight: 80,
     image: require('_assets/images/avacado.png'),
+    status: 'pending',
   },
   {
     id: 'bd7acb1ea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -30,6 +31,7 @@ const DATA = [
     date: 'Feb 24 2021',
     weight: 80,
     image: require('_assets/images/banana.png'),
+    status: 'pending',
   },
   {
     id: 'bd7ac12bea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -37,6 +39,7 @@ const DATA = [
     type: 'Eureka',
     date: 'Feb 24 2021',
     weight: 80,
+    status: 'pending',
   },
   {
     id: 'bd7121acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -44,6 +47,7 @@ const DATA = [
     type: 'Eureka',
     date: 'Feb 24 2021',
     weight: 80,
+    status: 'pending',
   },
   {
     id: 'bd127121acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -51,41 +55,7 @@ const DATA = [
     type: 'Eureka',
     date: 'Feb 24 2021',
     weight: 80,
-  },
-  {
-    id: 'b11d7121acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Lemon',
-    type: 'Eureka',
-    date: 'Feb 24 2021',
-    weight: 80,
-  },
-  {
-    id: 'bd712121acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Lemon',
-    type: 'Eureka',
-    date: 'Feb 24 2021',
-    weight: 80,
-  },
-  {
-    id: 'bd122347121acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Lemon',
-    type: 'Eureka',
-    date: 'Feb 24 2021',
-    weight: 80,
-  },
-  {
-    id: 'b11d7121231acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Lemon',
-    type: 'Eureka',
-    date: 'Feb 24 2021',
-    weight: 80,
-  },
-  {
-    id: 'bd723112121acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Lemon',
-    type: 'Eureka',
-    date: 'Feb 24 2021',
-    weight: 80,
+    status: 'pending',
   },
 ];
 {
@@ -95,8 +65,8 @@ const Item = ({name, type, weight, date, image}) => (
   <TouchableOpacity
     style={{
       backgroundColor: 'white',
-      width: wp(311),
-      height: hp(85),
+      width: wp(315),
+      height: hp(120),
       marginLeft: wp(5),
       marginBottom: hp(5),
       borderRadius: 20,
@@ -104,51 +74,107 @@ const Item = ({name, type, weight, date, image}) => (
     }}
     underlayColor="white"
     activeOpacity={0.5}>
-    <Text
+    {/* top part */}
+    <View
       style={{
-        position: 'absolute',
-        flex: 1,
-        left: wp(106),
-        top: hp(16),
-        fontFamily: 'Poppins-Regular',
-        fontSize: rfv(13),
-        letterSpacing: wp(0.03),
+        height: hp(40),
+        width: wp(315),
+        borderBottomWidth: 0.5,
+        flexDirection: 'row',
+        alignItems: 'center',
       }}>
-      {name}
-    </Text>
-    <Text
+      {/* status */}
+      <View
+        style={{
+          width: wp(140),
+          height: hp(25),
+          left: wp(18),
+          borderWidth: 1,
+          borderRadius: 10,
+          borderColor: 'grey',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <Text
+          style={{
+            left: wp(20),
+            fontFamily: 'Poppins-Regular',
+            fontSize: rfv(11),
+          }}>
+          Processing
+        </Text>
+      </View>
+      <Text
+        style={{
+          left: wp(90),
+          fontFamily: 'Poppins-Regular',
+          fontSize: rfv(11),
+          color: '#B0B0B0',
+        }}>
+        {date}
+      </Text>
+    </View>
+    <View
       style={{
-        position: 'absolute',
-        flex: 1,
-        left: wp(106),
-        top: hp(40),
-        fontFamily: 'Poppins-Regular',
-        fontSize: rfv(13),
-        letterSpacing: wp(0.03),
+        height: hp(80),
+        //backgroundColor: 'red',
+        width: wp(315),
       }}>
-      {type}
-    </Text>
-    <Text
-      style={{
-        position: 'absolute',
-        flex: 1,
-        left: wp(106),
-        top: hp(61),
-        fontFamily: 'Poppins-Regular',
-        fontSize: rfv(13),
-        letterSpacing: wp(0.03),
-      }}>
-      {weight} kg | {date}
-    </Text>
-    <Image
-      style={{
-        position: 'absolute',
-        width: wp(68),
-        height: hp(60),
-        left: wp(15),
-        top: hp(7),
-      }}
-      source={image}></Image>
+      <Text
+        style={{
+          position: 'absolute',
+          left: wp(20),
+          top: hp(0),
+          fontFamily: 'Poppins-Regular',
+          fontSize: rfv(18),
+          letterSpacing: wp(0.03),
+        }}>
+        #458429
+      </Text>
+
+      <Text
+        style={{
+          position: 'absolute',
+          left: wp(20),
+          bottom: hp(10),
+          fontFamily: 'Poppins-Regular',
+          fontSize: rfv(13),
+          letterSpacing: wp(0.03),
+          color: '#788EAF',
+        }}>
+        payment
+      </Text>
+
+      <Text
+        style={{
+          position: 'absolute',
+          left: wp(140),
+          top: hp(5),
+          fontFamily: 'Poppins-Regular',
+          fontSize: rfv(12),
+          letterSpacing: wp(0.03),
+        }}>
+        Description
+      </Text>
+      <View
+        style={{
+          position: 'absolute',
+
+          width: wp(160),
+          height: wp(50),
+          left: wp(140),
+          bottom: hp(10),
+        }}>
+        <Text
+          style={{
+            fontFamily: 'Poppins-Regular',
+            fontSize: rfv(10),
+            letterSpacing: wp(0.03),
+          }}>
+          ajsfdbjaksfdbkja akesfdnlkafsdlksadfa
+        </Text>
+      </View>
+    </View>
   </TouchableOpacity>
 );
 
@@ -165,13 +191,13 @@ const ROrder = ({navigation}) => {
     />
   );
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: 'white'}}>
       {/* Header */}
       <View
         style={{
           width: wp(360),
           height: hp(70),
-          //backgroundColor: 'red',
+          backgroundColor: 'red',
           alignItems: 'center',
         }}>
         {/* Header Text */}
