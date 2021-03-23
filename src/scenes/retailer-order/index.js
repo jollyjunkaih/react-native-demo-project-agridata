@@ -197,7 +197,7 @@ const ROrder = ({navigation}) => {
         style={{
           width: wp(360),
           height: hp(70),
-          //backgroundColor: 'red',
+          backgroundColor: 'red',
           alignItems: 'center',
         }}>
         {/* Header Text */}

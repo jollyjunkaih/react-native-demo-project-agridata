@@ -18,12 +18,15 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="marketplace" component={Marketplace} />
-        <Stack.Screen name="farm" component={Farm} />
+        <Stack.Screen name="addproduce" component={AddProduce} />
+
         <Stack.Screen name="rorder" component={ROrder} />
+        <Stack.Screen name="farm" component={Farm} />
+
         <Stack.Screen name="forder" component={FOrder} />
         <Stack.Screen name="rdashboard" component={RDashboard} />
         <Stack.Screen name="fdashboard" component={FDashboard} />
-        <Stack.Screen name="addproduce" component={AddProduce} />
+
         <Stack.Screen name="wallet" component={Wallet} />
         <Stack.Screen name="producelist" component={ProduceList} />
       </Stack.Navigator>

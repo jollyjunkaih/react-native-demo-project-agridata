@@ -177,109 +177,151 @@ const Farm = ({navigation}) => {
   );
   return (
     <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
-      <TouchableOpacity
-        style={styles.back}
-        onPress={() => navigation.navigate('fdashboard')}
-        underlayColor="white"
-        activeOpacity={1}>
-        <Image source={require('_assets/images/back.png')}></Image>
-      </TouchableOpacity>
-      <Text style={styles.header}>John's Farm</Text>
+      {/* Header */}
       <View
         style={{
-          position: 'absolute',
-          width: wp(311),
-          height: hp(65),
-          left: wp(24),
-          top: hp(110),
-          backgroundColor: '#F1F1F1',
-          elevation: 3,
-          borderRadius: 14,
+          width: wp(360),
+          height: hp(70),
+          //backgroundColor: 'red',
+          alignItems: 'center',
         }}>
+        {/* Header Text */}
         <Text
           style={{
-            position: 'absolute',
-            width: wp(227),
-            height: hp(34),
-            left: wp(16),
-            top: hp(12),
+            top: hp(50),
             fontFamily: 'Poppins-Regular',
-            fontSize: rfv(13),
-            lineHeight: hp(17),
-            letterSpacing: wp(0.06),
-            color: '#788EAF',
+            fontSize: rfv(27),
+            lineHeight: hp(30),
+            letterSpacing: wp(0.08),
+            textTransform: 'capitalize',
+            color: '#444443',
           }}>
-          Some Random Quote
+          My Farm
         </Text>
-        <Image
+        {/* Back Button */}
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.navigate('fdashboard')}
+          underlayColor="white"
+          activeOpacity={1}>
+          <Image source={require('_assets/images/back.png')}></Image>
+        </TouchableOpacity>
+      </View>
+
+      {/* Main View */}
+      <View
+        style={{
+          width: wp(360),
+          height: hp(550),
+          //backgroundColor: 'blue',
+          alignItems: 'center',
+        }}>
+        {/* Random Text Box */}
+        <View
           style={{
-            position: 'absolute',
-            width: wp(91),
-            height: hp(60),
-            left: wp(215),
-            top: hp(1),
+            top: hp(20),
+            width: wp(311),
+            height: hp(65),
+            backgroundColor: '#F1F1F1',
+            elevation: 3,
+            borderRadius: 14,
+          }}>
+          <Text
+            style={{
+              position: 'absolute',
+              width: wp(227),
+              height: hp(34),
+              left: wp(16),
+              top: hp(12),
+              fontFamily: 'Poppins-Regular',
+              fontSize: rfv(13),
+              lineHeight: hp(17),
+              letterSpacing: wp(0.06),
+              color: '#788EAF',
+            }}>
+            Some Random Quote
+          </Text>
+          <Image
+            style={{
+              position: 'absolute',
+              width: wp(91),
+              height: hp(60),
+              left: wp(215),
+              top: hp(1),
+            }}
+            source={require('_assets/images/veg.png')}></Image>
+        </View>
+        {/* List */}
+        <View
+          style={{
+            top: hp(30),
+            width: wp(360),
+            height: hp(400),
+            alignItems: 'center',
+            //backgroundColor: 'yellow',
+          }}>
+          <Text
+            style={{
+              right: wp(110),
+              top: hp(10),
+              fontSize: rfv(13),
+              fontFamily: 'Poppins-Regular',
+              lineHeight: hp(19),
+              letterSpacing: wp(0.06),
+            }}>
+            ALL RESULTS
+          </Text>
+          <View
+            style={{
+              top: hp(20),
+              width: wp(311),
+              height: hp(350),
+            }}>
+            <FlatList
+              data={DATA}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              numColumns={2}></FlatList>
+          </View>
+        </View>
+        {/* Add Button */}
+        <TouchableOpacity
+          style={{
+            height: hp(30),
+            width: wp(204),
+            top: hp(40),
+            backgroundColor: 'white',
+            elevation: 3,
+            borderRadius: 20,
           }}
-          source={require('_assets/images/veg.png')}></Image>
+          onPress={() => navigation.navigate('addproduce')}
+          underlayColor="white"
+          activeOpacity={0.5}>
+          <Text
+            style={{
+              position: 'absolute',
+              width: wp(140),
+              height: hp(25),
+              left: wp(19),
+              top: hp(5),
+              fontFamily: 'Poppins-Regular',
+              fontSize: rfv(14),
+              lineHeight: hp(21),
+              letterSpacing: wp(0.13),
+            }}>
+            ADD PRODUCE
+          </Text>
+          <Image
+            source={require('_assets/images/plus.png')}
+            style={{
+              position: 'absolute',
+              width: wp(17),
+              height: hp(17),
+              left: wp(170),
+              top: hp(7),
+            }}></Image>
+        </TouchableOpacity>
       </View>
-      <Text
-        style={{
-          position: 'absolute',
-          width: wp(311),
-          height: hp(32),
-          left: wp(24),
-          top: wp(210),
-          fontSize: rfv(13),
-          fontFamily: 'Poppins-Regular',
-          lineHeight: hp(19),
-          letterSpacing: wp(0.06),
-        }}>
-        ALL RESULTS
-      </Text>
-      <View style={styles.container}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          numColumns={2}></FlatList>
-      </View>
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          height: hp(30),
-          width: wp(204),
-          left: wp(78),
-          top: hp(570),
-          backgroundColor: 'white',
-          elevation: 3,
-          borderRadius: 20,
-        }}
-        onPress={() => navigation.navigate('addproduce')}
-        underlayColor="white"
-        activeOpacity={0.5}>
-        <Text
-          style={{
-            position: 'absolute',
-            width: wp(140),
-            height: hp(25),
-            left: wp(19),
-            top: hp(5),
-            fontFamily: 'Poppins-Regular',
-            fontSize: rfv(14),
-            lineHeight: hp(21),
-            letterSpacing: wp(0.13),
-          }}>
-          ADD PRODUCE
-        </Text>
-        <Image
-          source={require('_assets/images/plus.png')}
-          style={{
-            position: 'absolute',
-            width: wp(17),
-            height: hp(17),
-            left: wp(170),
-            top: hp(7),
-          }}></Image>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -287,12 +329,6 @@ const Farm = ({navigation}) => {
 export default Farm;
 
 const styles = StyleSheet.create({
-  container: {
-    top: hp(230),
-    width: wp(311),
-    height: hp(320),
-    left: wp(25),
-  },
   back: {
     position: 'absolute',
     width: wp(28),
